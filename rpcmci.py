@@ -473,12 +473,12 @@ class RPCMCI(PCMCI):
             return a, objective_opt, parents_opt, results_opt, links_opt, gamma_opt, diff_g
 
         # Parallelizing over annealing steps
-        all_results = Parallel(n_jobs=n_jobs)(
-            delayed(one_annealing_step)(a) for a in range(max_anneal))
+        # all_results = Parallel(n_jobs=n_jobs)(
+            # delayed(one_annealing_step)(a) for a in range(max_anneal))
 
-        # all_results = []
-        # for a in range(max_anneal):
-        #     all_results.append(one_annealing_step(a))
+        all_results = []
+        for a in range(max_anneal):
+            all_results.append(one_annealing_step(a))
 
         error_free_annealings = 0
         for result in all_results:
