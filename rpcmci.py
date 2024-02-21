@@ -4,6 +4,9 @@
 #
 # License: GNU General Public License v3.0
 
+# This code was adapted from Tigramite. Original authors: Elena Saggioro, Sagar Simha, Matthias Bruhns, Jakob Runge).
+# We included functionality for missing data and made parallelization optional. Authors: Oana Popescu, Wiebke Günther.
+
 from copy import deepcopy
 import numpy as np
 import sklearn
@@ -59,6 +62,8 @@ class RPCMCI(PCMCI):
             of 0s )inactive) and 1s (active) and shape (num_regimes, num_samples).
         seed : int
             Random seed for annealing step.
+        run_parallel: bool
+            Whether to parallelize annealings over CPUs. Default: False.
         verbosity : int, optional (default: -1)
             Verbose levels -1, 0, 1, ...
         """
@@ -66,13 +71,17 @@ class RPCMCI(PCMCI):
     def __init__(self, dataframe, cond_ind_test=None,
                  prediction_model=None, initial_assignment=None,
                  link_assumptions=None,
-                 seed=None, verbosity=-1):
+                 seed=None, 
+                 run_parallel=False,
+                 verbosity=-1):
 
         self.verbosity = verbosity
 
         self.seed = seed
         if self.seed is None:
             self.seed = np.random.randint(0, 1000)
+
+        self.run_parallel = run_parallel
 
         # Set prediction model to be used in optimization
         self.prediction_model = prediction_model
@@ -472,13 +481,14 @@ class RPCMCI(PCMCI):
 
             return a, objective_opt, parents_opt, results_opt, links_opt, gamma_opt, diff_g
 
-        # Parallelizing over annealing steps
-        # all_results = Parallel(n_jobs=n_jobs)(
-            # delayed(one_annealing_step)(a) for a in range(max_anneal))
-
-        all_results = []
-        for a in range(max_anneal):
-            all_results.append(one_annealing_step(a))
+        if self.run_parallel:
+            # Parallelizing over annealing steps
+            all_results = Parallel(n_jobs=n_jobs)(
+                delayed(one_annealing_step)(a) for a in range(max_anneal))
+        else:
+            all_results = []
+            for a in range(max_anneal):
+                all_results.append(one_annealing_step(a))
 
         error_free_annealings = 0
         for result in all_results:
