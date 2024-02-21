@@ -1,4 +1,4 @@
-# Tutorial for the Climate Change AI Workshop at ICLR24 on Using Regime Causal Discovery for Understanding Anomalous Events, with Application to the Soil Moisture Problem
+# Tutorial for the Climate Change AI Workshop at ICLR24 on "Understanding drivers of climate extremes using regime-specific causal graphs" with application to the soil moisture problem
 
 ## Required python packages
 
