@@ -1,4 +1,4 @@
-# tutorial_RPCMCI_CCAI24
+# Tutorial for the Climate Change AI Workshop at ICLR24 on Using Regime Causal Discovery for Understanding Anomalous Events, with Application to the Soil Moisture Problem
 
 ## Required python packages
 
