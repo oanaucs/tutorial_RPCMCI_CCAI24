@@ -1,4 +1,4 @@
-# tutorial_RPCMCI_CCAI24
+# Tutorial for the Climate Change AI Workshop at ICLR24 on "Understanding drivers of climate extremes using regime-specific causal graphs" with application to the soil moisture problem
 
 ## Required python packages
 
