@@ -41,6 +41,7 @@ The code for RPCMCI (rpcmc.py) was adapted from Tigramite (original authors: Ele
 We included functionality for missing data and made parallelization optional (Authors: Oana Popescu, Wiebke Günther).
 This adapted code for RPCMCI is published under the GNU General Public License v3.0.
 
+The tutorial notebook is published under MIT license.
 
 ## Running the tutorial from Colab
 
